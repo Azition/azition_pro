@@ -21,6 +21,7 @@
 		},
 		data: function(){
 			return {
+				title: 'Profile'
 			};
 		},
 		methods:{
@@ -37,6 +38,7 @@
 		},
 		data: function(){
 			return {
+				title: 'Abilities'
 			};
 		},
 		methods:{
@@ -53,6 +55,7 @@
 		},
 		data: function(){
 			return {
+				title: 'Projects'
 			};
 		},
 		methods:{
@@ -69,6 +72,7 @@
 		},
 		data: function(){
 			return{
+				title: 'Contacts'
 			};
 		},
 		methods:{

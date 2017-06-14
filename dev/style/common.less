@@ -2,8 +2,22 @@
 @border-color: darken(#E1E0C2, 40%);
 @content-text-color: #9e0055;
 
+@panel-custom-border: rgba(0, 0, 0, 0.8);
+@panel-custom-text: #ffffff;
+@panel-custom-heading-bg: rgba(0, 0, 0, 0.7);
+
+@panel-bg: rgba(0, 0, 0, 0.5);
+
+@btn-custom-color: #ffffff;
+@btn-custom-bg: rgba(0, 0, 0, 0.7);
+@btn-custom-border: darken(@btn-custom-bg, 7%);
+
+@well-bg:                     rgba(0, 0, 0, 0.8);
+@well-border:                 darken(@well-bg, 7%);
+
 body{
 	font-family: 'Ubuntu', sans-serif;
+	direction: ltr;
 }
 
 [v-cloak]{
@@ -24,13 +38,20 @@ body{
 	&-name{
 		color:#62fd07;
 	}
+	&-string{
+		color:#FD8A00;
+	}
+	&-number{
+		color:#00DBFF;
+	}
 }
 
 .window{
 	position: absolute;
     transition: all 1s;
     background-color: rgba(0,0,0,.7);
-    border-radius: 12px;
+    border-radius: 12px;    
+    padding-bottom: 10px;
 }
 .button{
     background-color: rgba(0,0,0,.4);
@@ -57,12 +78,16 @@ body{
     transition: all 1s;
 }
 
+.hide-elem{
+    transition: opacity .6s;
+}
+
 .open-left, .open-right, .open-top, .open-bottom{
 	& .overlay{
 	    background-color: rgba(0,0,0,.6);
 	    display: block;
 	}
-	& .button-bottom{
+	& .button-bottom,{
 		bottom: -999px;
 	}
 	& .button-left{
@@ -73,6 +98,17 @@ body{
 	}
 	& .button-top{
 		top: -999px;		
+	}
+	& .hide-elem{
+		opacity: 0;
+	}
+}
+
+.main-window{
+	padding: 100px 0;
+
+	@media (max-width: @screen-xs-max){
+		padding: 10px 0;
 	}
 }
 
@@ -134,7 +170,13 @@ body{
     width: 32%;
     top: 0;
     left: 34%;
-    transition: top .3s;
+    transition: top .3s, transform .3s;
+    border-bottom-left-radius: 999px;
+    border-bottom-right-radius: 999px;
+
+    &:hover{
+    	transform: matrix(1.1,0,0,1.1,0,0);
+    }
 }
 
 .button-bottom{
@@ -143,25 +185,69 @@ body{
     width: 32%;
     bottom: 0;
     left: 34%;
-    transition: bottom .3s;
+    transition: bottom .3s, transform .3s;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+
+    &:hover{
+    	transform: matrix(1.1,0,0,1.1,0,0);
+    }
 }
 
 .button-left{
 	.button();
-	height: 32%;
+	height: 320px;
     width: 80px;
     left: 0;
-    top: 34%;
-    transition: left .3s;
+    top: 30%;
+    transition: left .3s, transform .3s;
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+    padding: 30px 0px;
+
+    &:hover{
+    	transform: matrix(1.1,0,0,1.1,0,0);
+    }
+
+    .tranform-text{
+    	transform: rotate(90deg);
+	    transform-origin: 26px 34px;
+	    position: absolute;
+	    width:200px;
+    }
 }
 
 .button-right{
 	.button();
-	height: 32%;
+	height: 320px;
     width: 80px;
     right: 0;
-    top: 34%;
-    transition: right .3s;
+    top: 30%;
+    transition: right .3s, transform .3s;
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+    padding: 30px 0px;
+
+    &:hover{
+    	transform: matrix(1.1,0,0,1.1,0,0);
+    }
+
+    .tranform-text{
+    	transform: rotate(-90deg);
+	    transform-origin: 116px 94px;
+	    position: absolute;
+	    width:200px;
+    }
+}
+a{
+	&.button-top,
+	&.button-bottom,
+	&.button-left,
+	&.button-right{
+		&:hover{
+			text-decoration: none;
+		}
+	}
 }
 
 .close-btn{
@@ -204,32 +290,13 @@ body{
 }
 
 .photo{
-	position: absolute;
-	width: 300px;
+	position: relative;
+	width: 100%;
 	height: 300px;
 	border-radius: 10px;
-	top: -155px;
-	left: 150px;
-	border: 10px solid #d9d4ae;
+	border: 4px solid #d9d4ae;
 	background-image: url(../img/v8Ego7buYjs.jpg);
 	background-size: cover;
-
-	@media (max-width:1200px) {
-		left: 100px;
-	}
-
-	@media (max-width: 979px) {
-		left: 50px;
-		top: -260px;
-	}
-
-	@media (max-width: 699px) {
-	    width: 200px;
-	    height: 200px;
-	    border-radius: 50%;
-	    top: -340px;
-	    left: 10px;
-	}
 }
 .c-section-title{
 	font-size: 60px;
@@ -254,4 +321,147 @@ body{
 		color: @content-text-color;
 		padding-left: 20px;
 	}
+}
+
+textarea[prop=no-rezise] {
+    resize: none;
+}
+
+.panel-custom {
+  .panel-variant(@panel-custom-border; @panel-custom-text; @panel-custom-heading-bg; @panel-custom-border);
+}
+
+.btn-custom {
+  .button-variant(@btn-custom-color; @btn-custom-bg; @btn-custom-border);
+}
+
+@-webkit-keyframes show-first-button {
+  0%   	{ 
+  	bottom: 40px; 
+  }
+  100% 	{ 
+  	bottom: 400px; 
+  }
+}
+@-moz-keyframes show-first-button {
+  0%   	{ 
+  	bottom: 40px; 
+  }
+  100% 	{ 
+  	bottom: 400px; 
+  }
+}
+@-o-keyframes show-first-button {
+  0%   	{ 
+  	bottom: 40px; 
+  }
+  100% 	{ 
+  	bottom: 400px; 
+  }
+}
+@keyframes show-first-button {
+  0%   	{ 
+  	bottom: 40px; 
+  }
+  100% 	{ 
+  	bottom: 400px; 
+  }
+}
+
+.c-button-group{
+	& .c-button-control{
+		display: none;
+	}
+	@media (max-width: @screen-xs-max) {
+		& .c-button-control{
+			display: block;
+		    position: absolute;
+			width: 100px;
+			height: 100px;
+			background-color: @btn-custom-bg;
+			bottom: 40px;
+			right: 40px;
+		    border-radius: 9999px;
+		}
+
+		& .button-top,
+		& .button-right,
+		& .button-left,
+		& .button-bottom{
+    		top: inherit;
+    		left: inherit;
+			.c-button-control();
+    		display: none;
+
+			& .c-title{
+				display: none;
+			}
+
+			& .tranform-text{
+				transform: none;
+				width: 0;
+			}
+		}
+		& .button-right{
+    		padding: 14px 30px;
+		}
+		& .button-top{
+		}
+		& .button-left{
+		}
+		& .button-bottom{
+		}
+
+		& .button-top,
+		& .button-left,
+		& .button-bottom{
+		    padding: 10px 32px;
+		}
+	}
+
+	&.open{
+		& .button-top{
+  			display: block;
+  			bottom: 400px; 
+			animation-name: show-first-button;
+			animation-duration: 1s;
+			animation-direction: alternate;
+		}
+	}
+}
+
+.block1{
+	position: fixed;
+	overflow-y: scroll;
+	width: 100%;
+	height: 100%;
+	direction: none;
+}
+
+.block2{
+	    padding-bottom: 10px;isplay: block;
+	position: relative;
+	height: 100%;
+	&:after{
+		content: ".";
+		display: block;
+		height: 0px;
+		font-size: 0px;
+		line-height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+
+.scroll-container{
+	position: absolute;
+	// top:110px;
+	top:0;
+	bottom: 90px;
+	overflow-y: scroll;
+}
+
+.block3{
+	height: 100%;
+	overflow: hidden;
 }
