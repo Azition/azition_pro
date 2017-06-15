@@ -3,6 +3,12 @@
 	Vue.component('main', {
 		template: '#main',
 
+		data: function(){
+			return {
+				showMenu: false,
+			}
+		},
+
 		ready: function(){
 			var that = this;
 		},
@@ -10,6 +16,11 @@
 		methods:{
 			onOpen: function(val){
 				this.$dispatch('open-window',val);
+				this.showMenu = !this.showMenu;
+			},
+
+			onShowMenu: function(){
+				this.showMenu = !this.showMenu;
 			}
 		}
 	});
@@ -101,7 +112,7 @@
 				Object.keys(this.rootClass).map(function(k,v){
 					that.rootClass[k] = false;
 				});
-			}
+			},
 		},
 		events: {
 			'open-window': function(msg){

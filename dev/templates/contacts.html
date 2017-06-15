@@ -1,13 +1,20 @@
 <script type="text/x-template" id="contacts">
 	<div class="{{ class }}">
-		<a href="javascript:void(0)" class="close-btn" @click="onClose()"></a>
-		<div class="container">
-			<h2 class="c-section-title c-text text-center"><span class="color-symbol">{</span>{{title}}<span class="color-symbol">}</span></h2>
-			<div class="divider"></div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6"></div>
-				<div class="col-xs-12 col-sm-6"></div>
+		<div class="container popup">
+			<div class="popup-container">
+				<h2 class="c-section-title c-text text-center"><span class="color-symbol">{</span>{{title}}<span class="color-symbol">}</span></h2>
+				<div class="divider"></div>
+				<div class="popup-container-inner">
+					<div class="scroll-container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+									<h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam excepturi debitis, sed, enim consectetur ab, quia aperiam dignissimos eaque temporibus exercitationem laboriosam deleniti deserunt voluptate autem, illo quis. Odio, fugiat!</h2></div>
+							<div class="col-xs-12 col-sm-6"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+		<a href="javascript:void(0)" class="close-btn" @click="onClose()"></a>
 	</div>
 </script>

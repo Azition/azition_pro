@@ -1,75 +1,47 @@
 <script type="text/x-template" id="profile">
 	<div class="{{ class }}">
-		<a href="javascript:void(0)" class="close-btn" @click="onClose()"></a>
-		<div class="container block3">
-			<h2 class="c-section-title c-text text-center"><span class="color-symbol">{</span>{{title}}<span class="color-symbol">}</span></h2>
-			<div class="divider"></div>
-			<div class="row block3">
-				<div class="block2">
-				<div class="scroll-container">	
-					<div class="col-sm-5">
-						<h3><span class="color-function">function</span> <span class="color-name">aboutMe</span> <span class="color-symbol">()</span></h3>
-						<p class="color-symbol">{</p>
-						<p class="c-text c-describe">My name is Azat and I'm a web developer. The main stack used on the web is JS, CSS, HTML (front-end), and PHP (back-end). Have is experience of working out on Java under Android, on JS under NodeJS. In my spare time I study C / C ++, Android NDK, operating systems, algorithms, design patterns and their application.</p>
-						<p class="color-symbol">}</p>
-					</div>
-					<div class="col-sm-2"></div>
-					<div class="col-sm-5">
-						<h3><span class="color-function">function</span> <span class="color-name">details</span> <span class="color-symbol">(value)</span></h3>
-						<p class="color-symbol">{</p>
-						<div class="c-describe">
-							<span class="c-text">switch <span class="color-symbol">(value) {</span></span>
-							<ul class="c-detail-list">
-								<li>
-									<div class="c-detail-title">case <span class="color-string">"Name"</span>:</div>
-									<div class="c-detail-describe">return <span class="color-string">"Kazaev Azat"</span></div>
-								</li>
-								<li>
-									<div class="c-detail-title">case <span class="color-string">"Age"</span>:</div>
-									<div class="c-detail-describe">return <span class="color-number">24</span></div>
-								</li>
-								<li>
-									<div class="c-detail-title">case <span class="color-string">"Location"</span>:</div>
-									<div class="c-detail-describe">return <span class="color-string">"Russian, Saint-Petersburg"</span></div>
-								</li>
-							</ul>
-							<span class="color-symbol">}</span>
+		<div class="container popup">
+			<div class="popup-container">
+	            <h2 class="c-section-title c-text text-center"><span class="color-symbol">{</span>{{title}}<span class="color-symbol">}</span></h2>
+	            <div class="divider"></div>
+				<div class="popup-container-inner">
+					<div class="scroll-container">
+						<div class="row">
+		                    <div class="col-sm-6 col-md-5">
+		                        <h3><span class="color-function">function</span> <span class="color-name">aboutMe</span> <span class="color-symbol">()</span></h3>
+		                        <p class="color-symbol">{</p>
+		                        <p class="c-text c-describe">echo  <span class="color-string">"My name is Azat and I'm a web developer. The main stack used on the web is JS, CSS, HTML (front-end), and PHP (back-end). Have is experience of working out on Java under Android, on JS under NodeJS. In my spare time I study C / C ++, Android NDK, operating systems, algorithms, design patterns and their application."</span>;</p>
+		                        <p class="color-symbol">}</p>
+		                    </div>
+		                    <div class="col-sm-0 col-md-2"></div>
+		                    <div class="col-sm-6 col-md-5">
+		                        <h3><span class="color-function">function</span> <span class="color-name">details</span> <span class="color-symbol">(value)</span></h3>
+		                        <p class="color-symbol">{</p>
+		                        <div class="c-describe">
+		                            <span class="c-text">switch <span class="color-symbol">(value) {</span></span>
+		                            <ul class="c-detail-list">
+		                                <li>
+		                                    <div class="c-detail-title">case <span class="color-string">"Name"</span>:</div>
+		                                    <div class="c-detail-describe">return <span class="color-string">"Kazaev Azat"</span></div>
+		                                </li>
+		                                <li>
+		                                    <div class="c-detail-title">case <span class="color-string">"Age"</span>:</div>
+		                                    <div class="c-detail-describe">return <span class="color-number">24</span></div>
+		                                </li>
+		                                <li>
+		                                    <div class="c-detail-title">case <span class="color-string">"Location"</span>:</div>
+		                                    <div class="c-detail-describe">return <span class="color-string">"Russian, Saint-Petersburg"</span></div>
+		                                </li>
+		                            </ul>
+		                            <span class="color-symbol">}</span>
+		                        </div>
+		                        <p class="color-symbol">}</p>
+		                    </div>
 						</div>
-						<p class="color-symbol">}</p>
 					</div>
-					<div class="col-sm-5">
-						<h3><span class="color-function">function</span> <span class="color-name">aboutMe</span> <span class="color-symbol">()</span></h3>
-						<p class="color-symbol">{</p>
-						<p class="c-text c-describe">My name is Azat and I'm a web developer. The main stack used on the web is JS, CSS, HTML (front-end), and PHP (back-end). Have is experience of working out on Java under Android, on JS under NodeJS. In my spare time I study C / C ++, Android NDK, operating systems, algorithms, design patterns and their application.</p>
-						<p class="color-symbol">}</p>
-					</div>
-					<div class="col-sm-2"></div>
-					<div class="col-sm-5">
-						<h3><span class="color-function">function</span> <span class="color-name">details</span> <span class="color-symbol">(value)</span></h3>
-						<p class="color-symbol">{</p>
-						<div class="c-describe">
-							<span class="c-text">switch <span class="color-symbol">(value) {</span></span>
-							<ul class="c-detail-list">
-								<li>
-									<div class="c-detail-title">case <span class="color-string">"Name"</span>:</div>
-									<div class="c-detail-describe">return <span class="color-string">"Kazaev Azat"</span></div>
-								</li>
-								<li>
-									<div class="c-detail-title">case <span class="color-string">"Age"</span>:</div>
-									<div class="c-detail-describe">return <span class="color-number">24</span></div>
-								</li>
-								<li>
-									<div class="c-detail-title">case <span class="color-string">"Location"</span>:</div>
-									<div class="c-detail-describe">return <span class="color-string">"Russian, Saint-Petersburg"</span></div>
-								</li>
-							</ul>
-							<span class="color-symbol">}</span>
-						</div>
-						<p class="color-symbol">}</p>
-					</div>
-				</div>
 				</div>
 			</div>
 		</div>
+		<a href="javascript:void(0)" class="close-btn" @click="onClose()"></a>
 	</div>
 </script>
