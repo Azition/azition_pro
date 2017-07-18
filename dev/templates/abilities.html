@@ -3,15 +3,50 @@
 		<div class="container popup">
 			<div class="popup-container">
 				<h2 class="c-section-title c-text text-center"><span class="color-symbol">{</span>{{title}}<span class="color-symbol">}</span></h2>
-				<div class="divider"></div>
 				<div class="popup-container-inner">
-					<div class="scroll-container">
-						<div class="row">
-							<div class="scroll-container">	
+					<div class="popup-container-outer">
+						<div class="scroll-container">
+							<div class="row">
 								<div class="col-xs-12 col-sm-6">
-									<h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam excepturi debitis, sed, enim consectetur ab, quia aperiam dignissimos eaque temporibus exercitationem laboriosam deleniti deserunt voluptate autem, illo quis. Odio, fugiat!</h2>
+									<template v-for="ability in abilities">
+										<fieldset v-if="$index % 2 == 0">
+											<legend class="c-text c-legend">{{ability.name}}</legend>
+											<ul class="list-group c-list-rating">
+												<template v-for="item in ability.items">
+													<li class="list-group-item">
+														<span class="color-name">{{ item.name }}</span>
+														<div class="star-rating">
+															<template v-for="n in 10">
+																<span v-if="item.star > n" class="glyphicon glyphicon-star color-string" aria-hidden="true"></span>
+																<span v-else class="glyphicon glyphicon-star-empty color-string-dark" aria-hidden="true"></span>
+															</template>
+														</div>
+													</li>
+												</template>
+											</ul>
+										</fieldset>
+									</template>
 								</div>
-								<div class="col-xs-12 col-sm-6"></div>
+								<div class="col-xs-12 col-sm-6">
+									<template v-for="ability in abilities">
+										<fieldset v-if="$index % 2 != 0">
+											<legend class="c-text c-legend">{{ability.name}}</legend>
+											<ul class="list-group c-list-rating">
+												<template v-for="item in ability.items">
+													<li class="list-group-item">
+														<span class="color-name">{{ item.name }}</span>
+														<div class="star-rating">
+															<template v-for="n in 10">
+																<span v-if="item.star > n" class="glyphicon glyphicon-star color-string" aria-hidden="true"></span>
+																<span v-else class="glyphicon glyphicon-star-empty color-string-dark" aria-hidden="true"></span>
+															</template>
+														</div>
+													</li>
+												</template>
+											</ul>
+										</fieldset>
+									</template>
+								</div>
 							</div>
 						</div>
 					</div>

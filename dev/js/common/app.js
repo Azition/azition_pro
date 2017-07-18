@@ -11,9 +11,13 @@
 
 		ready: function(){
 			var that = this;
+      document.addEventListener("mousewheel", this.handleMouseWheel, false);
 		},
 
 		methods:{
+      handleMouseWheel: function(evt){
+        console.log(evt);
+      },
 			onOpen: function(val){
 				this.$dispatch('open-window',val);
 				this.showMenu = !this.showMenu;
@@ -49,13 +53,58 @@
 		},
 		data: function(){
 			return {
+				abilities:[
+					{
+						name: 'Programming languages',
+						items:[
+							{ name:'PHP', star: 7},
+							{ name:'JavaScript', star: 7},
+							{ name:'HTML/CSS', star: 6},
+							{ name:'Java', star: 6},
+							{ name:'C', star: 3},
+							{ name:'C++', star: 3},
+							{ name:'Python', star: 1},
+						],
+					},
+					{
+						name: 'JavaScript frameworks',
+						items:[
+							{ name: 'Vue', star: 6},
+							{ name: 'AngularJs', star: 2},
+							{ name: 'ReactJs', star: 2},
+						],
+					},
+					{
+						name: 'Platforms',
+						items: [
+							{ name:'NodeJS', star: 5},
+							{ name:'Android', star: 4},
+						]
+					},
+					{
+						name: 'Backend frameworks',
+						items: [
+							{name: 'Yii', star: 5},
+							{name: 'Yii2', star: 3},
+							{name: 'ExpressJS', star: 2},
+							{name: 'Phalcon', star: 2},
+							{name: 'Django', star: 1},
+						],
+					}
+				],
 				title: 'Abilities'
 			};
+		},
+		computed:{
+			abilitiesCount: function(){
+				console.log(this.abilities.length);
+				return this.abilities.length;
+			}
 		},
 		methods:{
 			onClose: function(){
 				this.$dispatch('close-window');
-			}
+			},
 		}
 	});
 

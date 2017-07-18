@@ -44,6 +44,9 @@ body{
 	}
 	&-string{
 		color:#FD8A00;
+		&-dark{
+			color: darken(#FD8A00, 35%);
+		}
 	}
 	&-number{
 		color:#00DBFF;
@@ -391,15 +394,6 @@ a{
 	}
 }
 
-.c-text{
-	color: @content-text-color;
-	.ubuntu-font();
-}
-
-.c-describe{
-	margin-left: 30px;
-}
-
 .photo{
 	position: relative;
 	width: 100%;
@@ -409,32 +403,60 @@ a{
 	background-image: url(../img/v8Ego7buYjs.jpg);
 	background-size: cover;
 }
-.c-section-title{
-	font-size: 60px;
 
-	@media (max-width: @screen-xs-max){
-		font-size: 40px;
-	}
-}
-
-.c-detail{
-	&-list{
-		list-style: none;
-		padding: 0;
-		margin: 0;
-
-		&> li {
-			padding: 4px 0;
-		}
-	}
-	&-title{
-		font-weight: 700;
+.c{
+	&-text{
 		color: @content-text-color;
-		padding-left: 10px;
+		.ubuntu-font();
 	}
 	&-describe{
-		color: @content-text-color;
-		padding-left: 20px;
+		margin-left: 30px;
+	}
+
+	&-section-title{
+		font-size: 60px;
+
+		@media (max-width: @screen-xs-max){
+			font-size: 40px;
+		}
+	}
+
+	&-detail{
+		&-list{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			&> li {
+				padding: 4px 0;
+			}
+		}
+		&-title{
+			font-weight: 700;
+			color: @content-text-color;
+			padding-left: 10px;
+		}
+		&-describe{
+			color: @content-text-color;
+			padding-left: 20px;
+		}
+	}
+
+	&-legend{
+		font-size: 30px;
+		padding-left: 14px;
+	}
+
+	&-list-rating{
+		list-style: none;
+		padding-left: 10px;
+		& > li {
+			font-size: 21px;
+
+			.star-rating{
+				float: right;
+			}
+		}
 	}
 }
 
@@ -464,19 +486,27 @@ textarea[prop=no-rezise] {
 			top:0;
 			bottom: 0;
 			height: 100%;
-			margin-right: -30px;
+			width: 100%;
 			padding-top: 110px;
 
 			@media (max-width: @screen-xs-max){
 				padding-top: 86px;
 			}
 		}
+
+		&-outer{
+			position: relative;
+			height: 100%;
+			margin-right: -50px;
+		}
 	}
 	
 	& .scroll-container{
 		overflow-y: scroll;
+		overflow-x: hidden;
 		height:100%;
-		padding-right: 30px;
+		width: 100%;
+		padding-right: 50px;
 	}
 }
 
@@ -497,12 +527,14 @@ textarea[prop=no-rezise] {
 			bottom: 0;
 			height: 100%;
 			width: 100%;
+			right:-30px;
 		}
 
 		&-outer{
 			position: relative;
 			height: 100%;
-			margin-right: -30px;
+			margin-right: -24px;
+			left: -34px;
 		}
 	}
 	
@@ -511,6 +543,5 @@ textarea[prop=no-rezise] {
 		overflow-x: hidden;
 		height:100%;
 		width: 100%;
-		padding-right: 30px;
 	}
 }
