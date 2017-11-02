@@ -6,18 +6,19 @@
 		data: function(){
 			return {
 				showMenu: false,
+				showDropdown: false,
 			}
 		},
 
 		ready: function(){
 			var that = this;
-      document.addEventListener("mousewheel", this.handleMouseWheel, false);
+			document.addEventListener("mousewheel", this.handleMouseWheel, false);
 		},
 
 		methods:{
-      handleMouseWheel: function(evt){
-        console.log(evt);
-      },
+			handleMouseWheel: function(evt){
+				console.log(evt);
+			},
 			onOpen: function(val){
 				this.$dispatch('open-window',val);
 				this.showMenu = !this.showMenu;
@@ -25,6 +26,10 @@
 
 			onShowMenu: function(){
 				this.showMenu = !this.showMenu;
+			},
+
+			toogleDropdown: function(){
+				this.showDropdown = !this.showDropdown;
 			}
 		}
 	});

@@ -1,0 +1,27 @@
+<header id="topnav">
+	<div class="topbar-main">
+		<div class="container">
+			<div class="topbar-left">
+				<a href="/" class="logo">
+					<span>Interactive resume</span>
+				</a>
+			</div>
+			<div class="menu-extras">
+				<ul class="nav navbar-nav navbar-right pull-right">
+					<li v-bind:class="{'open':showDropdown}" @click.prevent="toogleDropdown">
+						<a href class="profile">
+							<img class="img-user img-circle" src="assets/img/avatar_72.jpg" alt="">
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="javascript:void(0)">asdf</a></li>
+							<li><a href="javascript:void(0)">asdf</a></li>
+							<li><a href="javascript:void(0)">asdf</a></li>
+							<li><a href="javascript:void(0)">asdf</a></li>
+							<li><a href="javascript:void(0)">asdf</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>

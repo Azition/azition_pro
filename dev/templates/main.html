@@ -1,94 +1,21 @@
 <script type="text/x-template" id="main">
 	<div class="main">
 		<div class="container-fluid win">
-			<div class="win-container">
-				<div class="win-container-inner">
-					<div class="win-container-outer">
-						<div class="scroll-container">
-							<div class="row">
-								<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
-									<div class="main-window">
-										<div class="row">
-											<div class="col-xs-12">
-												<div class="col-xs-12 col-sm-6 col-md-9 col-lg-9">
-													<div class="well hide-elem"><span class="color-symbol h1">Interactive resume</span></div>
-												</div>
-												<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-													<div class="panel hide-elem panel-custom">
-														<div class="panel-heading">
-															<h3 class="panel-title">Status</h3>
-														</div>
-														<div class="panel-body">
-															<div class="h4">
-																<div class="color-symbol label label-success">Working</div>
-															</div>
-														</div>
-													</div>
-												</div>	
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-12">
-												<div class=" col-xs-12 col-sm-4 col-md-3 col-lg-3">
-													<div class="panel hide-elem panel-custom card-box widget-user">
-														<div>
-															<img class="img-responsive img-circle" src="assets/img/avatar_72.jpg" alt="">
-															<div class="wid-u-info">
-																<h4 class="color-name">Kazaev Azat</h4>
-																<p class="color-symbol">azition93@gmail.com</p>
-																<small class="color-string">Developer</small>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
-													<div class="panel hide-elem panel-custom">
-														<div class="panel-heading">
-															<h3 class="panel-title">Send me</h3>
-														</div>
-														<div class="panel-body">
-															<form action="">
-																<div class="form-group">
-																	<textarea class="form-control" rows="3" prop="no-rezise"></textarea>
-																</div>
-																<div class="form-group">
-						    										<button type="submit" class="btn btn-custom">Submit</button>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>	
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+			//= topnav.html
+			<div class="row">
+				<div class="container">
+					<div class="main-window row">
+						<div class=" col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							//= profile_panel.html
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+							//= send_me_form.html
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="c-button-group">
-			<a href="javascript:void(0)" v-show="showMenu" transition="slide-first" class="button-top" @click="onOpen('top')">
-				<div class="color-symbol h1 text-center">
-					<span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="c-title">Profile</span>
-				</div>
-			</a>
-			<a href="javascript:void(0)" v-show="showMenu" transition="slide-second" class="button-bottom" @click="onOpen('bottom')">
-				<div class="color-symbol h1 text-center">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span> <span class="c-title">Contacts</span>
-				</div>
-			</a>
-			<a href="javascript:void(0)" v-show="showMenu" transition="slide-third" class="button-left" @click="onOpen('left')">
-				<div class="color-symbol h1 text-center tranform-text">
-					<span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span> <span class="c-title">Abilities</span>
-				</div>
-			</a>
-			<a href="javascript:void(0)" v-show="showMenu" transition="slide-fouth" class="button-right" @click="onOpen('right')">
-				<div class="color-symbol h1 text-center tranform-text">
-					<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> <span class="c-title">Projects</span>
-				</div>
-			</a>
 			<div class="c-button-control" @click="onShowMenu()"></div>
 		</div>
 	</div>
