@@ -1,2 +1,1 @@
-# azition_pro
-Personal page
+# Azition CV page
