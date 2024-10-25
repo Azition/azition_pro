@@ -1,134 +1,62 @@
-'use strict';
+const { src, dest, series, task, parallel, watch } = require('gulp');
+const clean         = require('gulp-clean');
+const concat        = require('gulp-concat');
+const cleanCss      = require('gulp-clean-css');
+const mergeStream   = require('merge-stream');
+const htmlmin       = require('gulp-htmlmin');
+const cheerio       = require('gulp-cheerio');
+const util          = require('gulp-util');
+const fs            = require('fs');
+const path          = require('node:path');
+const through2      = require('through2');
 
-var gulp = require('gulp'),
-    watch = require('gulp-watch'),
-    prefixer = require('gulp-autoprefixer'),
-    uglify = require('gulp-uglify'),
-    less = require('gulp-less'),
-    sourcemaps = require('gulp-sourcemaps'),
-    rigger = require('gulp-rigger'),
-    cssmin = require('gulp-minify-css'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
-    rimraf = require('rimraf'),
-    browserSync = require("browser-sync"),
-    reload = browserSync.reload;
+const DEST_DIR = 'dist/';
+const TMP_DIR = 'tmp';
+const CSS_TMP_DIR = `${TMP_DIR}/css`;
+const FONTS = 'src/fonts/**/*.{otf,ttf,woff,woff2}';
+const CSS_LIST = ['src/css/_normalize.css', 'src/css/main.css'];
+const INDEX_FILE = 'src/index.html';
 
-var path = {
-
-    build: {
-      html: 'public_html/',
-      js: 'public_html/assets/js/',
-      css: 'public_html/assets/css/',
-      img: 'public_html/assets/img/',
-      fonts: 'public_html/assets/fonts/'
-    },
-
-    src: {
-      html: 'dev/*.html',
-      js: 'dev/js/main.js',
-      style: 'dev/style/main.less',
-      img: 'dev/img/**/*.*',
-      fonts: 'dev/fonts/**/*.*'
-    },
-
-    watch: {
-      html: 'dev/**/*.html',
-      js: 'dev/js/**/*.js',
-      style: 'dev/style/**/*.less',
-      img: 'dev/img/**/*.*',
-      fonts: 'dev/fonts/**/*.*'
-    },
-    clean: './public_html'
+const addCssLink = ($, file, done) => {
+  const head = $('head')[0];
+  fs.readdirSync(CSS_TMP_DIR).map(fname => {
+    const data = fs.readFileSync(path.join(CSS_TMP_DIR, fname));
+    const encodedContents = new Buffer.from(data).toString('base64');
+    $(head).append(`<link rel="stylesheet" href="data:text/css;base64,${encodedContents}">`);
+    // $(head).append(`<link rel="stylesheet" href="/css/${fname}">`);
+  });
+  done();
 };
+const cleanDir = () => src(`${DEST_DIR}*`, { allowEmpty: true, read: false }).pipe(clean());
+const cleanTmpDir = () => src(`${TMP_DIR}`, { allowEmpty: true, read: false }).pipe(clean());
+const fonts2ss = () => src(FONTS).pipe(through2.obj((file, _, cb) => {
+  if (file.isBuffer()) {
+    const data = fs.readFileSync(file.path);
+    const encodedContents = new Buffer.from(data).toString('base64');
 
+    const attributes = [
+      `font-family:${path.basename(file.path, path.extname(file.path))};`,
+      `src:url(data:application/x-font-ttf;base64,${encodedContents});`
+    ];
+    file.contents = new Buffer.from(`@font-face{${attributes.join('')}}`);
+    file.path = util.replaceExtension(file.path, '.css');
+  }
+  cb(null, file);
+}));
+const cssmin = () => src(CSS_LIST).pipe(cleanCss());
+const concatAllCss = () => mergeStream(fonts2ss(), cssmin())
+  .pipe(dest(CSS_TMP_DIR));
+const indexHtml = () => src(INDEX_FILE)
+  .pipe(cheerio(addCssLink))
+  .pipe(htmlmin({ collapseWhitespace: true }))
+  .pipe(dest(DEST_DIR));
 
-var config = {
-  
-  server: {
-    baseDir: "./public_html"
-  },
-  open: false,
-  tunnel: true,
-  host: 'localhost',
-  port: 9000,
-  logPrefix: "Frontend_Devil"
-};
-
-
-gulp.task('html:build', function(){
-  gulp.src(path.src.html)
-    .pipe(rigger())
-    .pipe(gulp.dest(path.build.html))
-    .pipe(reload({stream: true}));
+task('cleanDir', () => cleanDir());
+task('concatAllCss', () => concatAllCss());
+task('indexHtml', () => indexHtml());
+task('cleanTmpDir', () => cleanTmpDir());
+task('watch:files', () => {
+  watch('src/**/*.*', series(parallel('cleanDir', 'cleanTmpDir'), 'concatAllCss', 'indexHtml', 'cleanTmpDir'));
 });
 
-gulp.task('js:build', function(){
-  gulp.src(path.src.js)
-    .pipe(rigger())
-    .pipe(sourcemaps.init())
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.build.js))
-    .pipe(reload({stream: true}));
-});
-
-gulp.task('style:build', function(){
-  gulp.src(path.src.style)
-    .pipe(sourcemaps.init())
-    .pipe(less())
-    .pipe(prefixer())
-    .pipe(cssmin())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.build.css))
-    .pipe(reload({stream: true}));
-});
-
-gulp.task('image:build', function () {
-  gulp.src(path.src.img) //Выберем наши картинки
-    .pipe(imagemin({ //Сожмем их
-        progressive: true,
-        svgoPlugins: [{removeViewBox: false}],
-        use: [pngquant()],
-        interlaced: true
-    }))
-    .pipe(gulp.dest(path.build.img)) //И бросим в build
-    .pipe(reload({stream: true}));
-});
-
-gulp.task('fonts:build', function() {
-  gulp.src(path.src.fonts)
-    .pipe(gulp.dest(path.build.fonts))
-});
-
-gulp.task('build', [
-    'html:build',
-    'js:build',
-    'style:build',
-    'fonts:build',
-    'image:build'
-]);
-
-gulp.task('watch', function(){
-    watch([path.watch.html], function(event, cb) {
-        gulp.start('html:build');
-    });
-    watch([path.watch.style], function(event, cb) {
-        gulp.start('style:build');
-    });
-    watch([path.watch.js], function(event, cb) {
-        gulp.start('js:build');
-    });
-    watch([path.watch.img], function(event, cb) {
-        gulp.start('image:build');
-    });
-    watch([path.watch.fonts], function(event, cb) {
-        gulp.start('fonts:build');
-    });
-});
-
-gulp.task('webserver', function () {
-    browserSync(config);
-});
-
-gulp.task('default', ['build', 'webserver', 'watch']);
+task('default', series(parallel('cleanDir', 'cleanTmpDir'), 'concatAllCss', 'indexHtml', 'cleanTmpDir'));

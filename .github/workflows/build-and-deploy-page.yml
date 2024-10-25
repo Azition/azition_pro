@@ -1,0 +1,33 @@
+name: Build and deploy page
+run-name: ${{ github.actor }} run build and deploy page
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Assemble css files and fonts in index file
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 19
+      - run: |
+          npm install
+          npm install --global gulp-cli
+          gulp
+      - uses: actions/cache@v4
+        with:
+          path: ./dist/index.html
+          key: ${{ runner.os }}-build-${{ github.run_id }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: ./dist/index.html
+          key: ${{ runner.os }}-build-${{ github.run_id }}
+      - run: ls -lA
