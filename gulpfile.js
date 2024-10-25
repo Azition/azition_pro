@@ -59,4 +59,4 @@ task('watch:files', () => {
   watch('src/**/*.*', series(parallel('cleanDir', 'cleanTmpDir'), 'concatAllCss', 'indexHtml', 'cleanTmpDir'));
 });
 
-task('default', series(parallel('cleanDir', 'cleanTmpDir'), 'concatAllCss', 'indexHtml', 'cleanTmpDir'));
+task('default', series('concatAllCss', 'indexHtml', 'cleanTmpDir'));
