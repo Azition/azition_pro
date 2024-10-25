@@ -31,6 +31,10 @@ jobs:
         with:
           path: ./dist/index.html
           key: ${{ runner.os }}-build-${{ github.run_id }}
+      - name: Move files
+        run: |
+          mv dist/* ./
+          rm -r dist
       - name: Copy complete index to server
         uses: appleboy/scp-action@master
         with:
@@ -38,5 +42,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: "dist/index.html"
-          target: "/home/www/azition_page"
+          source: "index.html"
+          target: ${{ vars.PAGE_DIR }}
