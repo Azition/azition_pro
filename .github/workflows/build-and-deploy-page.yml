@@ -26,8 +26,17 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/cache@v4
+      - name: Restore build cache
+        uses: actions/cache@v4
         with:
           path: ./dist/index.html
           key: ${{ runner.os }}-build-${{ github.run_id }}
-      - run: ls -lA
+      - name: Copy complete index to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: "dist/index.html"
+          target: "/home/www/azition_page/index.html"
